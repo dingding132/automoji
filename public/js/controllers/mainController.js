@@ -7,7 +7,11 @@ angular.module('controller', [])
 
         $scope.status_code;
 
-        $scope.greeting = "Hello World";
+        $scope.messageData = {};
+
+        $http.get('/api/messages').success(function(data) {
+            $scope.messages = data;
+        });
 
         $http.post('/api/kairos').success(function(response) {
             $timeout( function () {
@@ -62,6 +66,15 @@ angular.module('controller', [])
             $http.delete('/api/kairos/' + id).success(function(response) {
                 console.log("Delete response", JSON.parse(response));
             });
+        };
+
+        $scope.addMessage = function() {
+            if ($scope.messageData != undefined) {
+                $http.post('/api/messages', $scope.messageData).success(function(data) {
+                    $scope.messageData = {};
+                    $scope.messages = data;
+                });
+            }
         };
 
     });

@@ -102,6 +102,20 @@
         <h1>Joy: {{ analysis.joy }}</h1>
         <h1>Sadness: {{ analysis.sadness }}</h1>
         <h1>Surprise: {{ analysis.surprise }}</h1>
+
+        <section id="messages">
+            <h4>Current Messages</h4>
+            <div class="message-list" ng-repeat="message in messages">
+                <p>Author: {{ message.author }}. Text: {{ message.text }} </p>
+            </div>
+            <h3>Add a message: </h3>
+            <div class="form-group">
+                <input type="text" class="form-control input-lg text-center" placeholder="Name" ng-model="messageData.author">
+                <input type="text" class="form-control input-lg text-center" placeholder="Text" ng-model="messageData.text">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" ng-click="addMessage()">Add</button>
+        </section>
+
     </div>
 </div>
 <!-- USING SCRIPTS BELOW TO REDUCE THE LOAD TIME -->
