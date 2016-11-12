@@ -12,17 +12,20 @@ angular.module('controller', [])
         $http.get('/api/messages').success(function(data) {
             $scope.messages = data;
 
+            for (var i=0; i<data.length; i++) {
+                $http.delete('/api/messages/' + data[i]._id).success(function(data) {});
+            }
+
             $timeout( function () {
                 refreshMessages();
             }, 3000 );
         });
 
-        $http.post('/api/kairos').success(function(response) {
+        $scope.addEmoji = function() {
             $timeout( function () {
                 getResult(JSON.parse(response).id);
             }, 5000 );
-
-        });
+        };
 
         var refreshMessages = function() {
             $http.get('/api/messages').success(function(data) {
