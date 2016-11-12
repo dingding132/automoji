@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Automoji</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="js/controllers/mainController.js"></script>
 </head>
 <body>
-
-<h1>Hello Dongwen</h1>
-
+<div ng-app="controller">
+    <div ng-controller="mainController">
+        <h1>{{greeting}}</h1>
+        <h1>{{ analysis.id }}</h1>
+    </div>
+</div>
 </body>
 </html>
