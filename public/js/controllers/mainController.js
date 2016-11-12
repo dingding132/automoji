@@ -11,6 +11,10 @@ angular.module('controller', [])
 
         $http.get('/api/messages').success(function(data) {
             $scope.messages = data;
+
+            $timeout( function () {
+                refreshMessages();
+            }, 3000 );
         });
 
         $http.post('/api/kairos').success(function(response) {
@@ -20,6 +24,15 @@ angular.module('controller', [])
 
         });
 
+        var refreshMessages = function() {
+            $http.get('/api/messages').success(function(data) {
+                $scope.messages = data;
+            });
+            $timeout( function () {
+                refreshMessages();
+            }, 3000 );
+        };
+
         var getResult = function (id) {
             $http.get('/api/kairos/' + id).success(function(response) {
                 console.log("Final response", JSON.parse(response));
@@ -27,7 +40,6 @@ angular.module('controller', [])
                 $scope.status_code = JSON.parse(response).status_code;
 
                 if ( $scope.status_code != '4' ) {
-                    console.log("hello");
                     $timeout( function () {
                         getResult(id);
                     }, 500 );

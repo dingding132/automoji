@@ -21,101 +21,37 @@
 <body>
 <div ng-app="controller">
 
-    <div class="container">
+    <div ng-controller="mainController">
         <div class="row pad-top pad-bottom">
-            <div class="col-lg-12">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <div class="chat-box-div">
                     <div class="chat-box-head">
-                        GROUP CHAT HISTORY
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="fa fa-cogs"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#"><span class="fa fa-map-marker"></span>&nbsp;Invisible</a></li>
-                                <li><a href="#"><span class="fa fa-comments-o"></span>&nbsp;Online</a></li>
-                                <li><a href="#"><span class="fa fa-lock"></span>&nbsp;Busy</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#"><span class="fa fa-circle-o-notch"></span>&nbsp;Logout</a></li>
-                            </ul>
-                        </div>
+                        WELCOME TO AUTOMOJI
                     </div>
-                    <div class="panel-body chat-box-main">
-                        <div class="chat-box-left">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <div class="panel-body chat-box-main" ng-repeat="message in messages">
+                        <div ng-class-odd="'chat-box-left'" ng-class-even="'chat-box-right'">
+                            {{ message.text }}
                         </div>
-                        <div class="chat-box-name-left">
-                            <img src="assets/img/user.png" alt="bootstrap Chat box user image" class="img-circle" />
-                            -  Justine Goliyad
-                        </div>
-                        <hr class="hr-clas" />
-                        <div class="chat-box-right">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                        <div class="chat-box-name-right">
-                            <img src="assets/img/user.gif" alt="bootstrap Chat box user image" class="img-circle" />
-                            - Romin Royeelin
-                        </div>
-                        <hr class="hr-clas" />
-                        <div class="chat-box-left">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                        <div class="chat-box-name-left">
-                            <img src="assets/img/user.png" alt="bootstrap Chat box user image" class="img-circle" />
-                            -  Justine Goliyad
-                        </div>
-                        <hr class="hr-clas" />
-                        <div class="chat-box-right">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </div>
-                        <div class="chat-box-name-right">
-                            <img src="assets/img/user.gif" alt="bootstrap Chat box user image" class="img-circle" />
-                            - Romin Royeelin
+                        <div ng-class-odd="'chat-box-name-left'" ng-class-even="'chat-box-name-right'" >
+                             {{ message.author }}
                         </div>
                         <hr class="hr-clas" />
                     </div>
                     <div class="chat-box-footer">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter Text Here...">
+                            <input type="text" class="form-control" placeholder="Name" ng-model="messageData.author">
+                            <input type="text" class="form-control" placeholder="Text" ng-model="messageData.text">
                             <span class="input-group-btn">
-                                <button class="btn btn-info" type="button">SEND</button>
+                                <button class="btn btn-info" ng-click="addMessage()" type="button">SEND</button>
                             </span>
                         </div>
                     </div>
-
                 </div>
 
             </div>
+            <div class="col-md-2"></div>
         </div>
-    </div>
-
-    <div ng-controller="mainController">
-        <h1>Emotion Analysis</h1>
-        <h1>Anger: {{ analysis.anger }}</h1>
-        <h1>Disgust: {{ analysis.disgust }}</h1>
-        <h1>Fear: {{ analysis.fear }}</h1>
-        <h1>Joy: {{ analysis.joy }}</h1>
-        <h1>Sadness: {{ analysis.sadness }}</h1>
-        <h1>Surprise: {{ analysis.surprise }}</h1>
-
-        <section id="messages">
-            <h4>Current Messages</h4>
-            <div class="message-list" ng-repeat="message in messages">
-                <p>Author: {{ message.author }}. Text: {{ message.text }} </p>
-            </div>
-            <h3>Add a message: </h3>
-            <div class="form-group">
-                <input type="text" class="form-control input-lg text-center" placeholder="Name" ng-model="messageData.author">
-                <input type="text" class="form-control input-lg text-center" placeholder="Text" ng-model="messageData.text">
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg" ng-click="addMessage()">Add</button>
-        </section>
-
     </div>
 </div>
 <!-- USING SCRIPTS BELOW TO REDUCE THE LOAD TIME -->
