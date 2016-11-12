@@ -10,8 +10,6 @@ module.exports = function (app) {
     app.post('/api/kairos', function(req, res) {
         request({
             method: 'POST',
-            // url: req.params.url,
-            //url: 'https://api.kairos.com/v2/media?source='+__dirname+'%2Fpublic%2Fmedia%2Fhappy.mov',
             url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2Fmedia.kairos.com%2Ftest.flv',
             timeout: '10',
             headers: {
