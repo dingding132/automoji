@@ -13,12 +13,12 @@ module.exports = function (app) {
     app.post('/api/kairos', function(req, res) {
         request({
             method: 'POST',
-            url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2Fmedia.kairos.com%2Ftest.flv',
-            //url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2F172.26.4.204%3A8080%2Fapi%2Fdownload',
+            //url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2Fmedia.kairos.com%2Ftest.flv',
+            url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2Fwww.dropbox.com%2Fs%2F8ajkkf1agoowf11%2Ftest.flv%3Fdl%3D1',
             timeout: '10',
             headers: {
-                'app_id': 'bc0b9fcd',
-                'app_key': '0ae50b89bb2c96c6fd7a2c8df8e89135'
+                'app_id': '01675658',
+                'app_key': '7058d1fd90eb1e88925a4acb4b3ea67d'
             }}, function (error, response, body) {
             console.log('Status:', response.statusCode);
             console.log('Headers:', JSON.stringify(response.headers));
@@ -32,8 +32,8 @@ module.exports = function (app) {
             method: 'GET',
             url: 'https://api.kairos.com/v2/media/' + req.params.media_id,
             headers: {
-                'app_id': 'bc0b9fcd',
-                'app_key': '0ae50b89bb2c96c6fd7a2c8df8e89135'
+                'app_id': '01675658',
+                'app_key': '7058d1fd90eb1e88925a4acb4b3ea67d'
             }}, function (error, response, body) {
             console.log('Status:', response.statusCode);
             console.log('Headers:', JSON.stringify(response.headers));
@@ -47,8 +47,8 @@ module.exports = function (app) {
             method: 'DELETE',
             url: 'https://api.kairos.com/v2/media/' + req.params.media_id,
             headers: {
-                'app_id': 'bc0b9fcd',
-                'app_key': '0ae50b89bb2c96c6fd7a2c8df8e89135'
+                'app_id': '01675658',
+                'app_key': '7058d1fd90eb1e88925a4acb4b3ea67d'
             }}, function (error, response, body) {
             console.log('Status:', response.statusCode);
             console.log('Headers:', JSON.stringify(response.headers));
