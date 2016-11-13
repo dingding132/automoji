@@ -71,6 +71,7 @@ module.exports = function (app) {
         Message.create({
             author: req.body.author,
             text: req.body.text,
+            emoji:req.body.emoji,
             done: false
         }, function (err) {
             if (err)
@@ -103,5 +104,3 @@ module.exports = function (app) {
         res.sendFile(__dirname + '/public/api.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 }
-
-//recordntc module functionality =============================

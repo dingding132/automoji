@@ -8,6 +8,7 @@ angular.module('controller', [])
         $scope.status_code;
 
         $scope.messageData = {};
+        $scope.emojiMessage = "ADD EMOJI";
 
         $http.get('/api/messages').success(function(data) {
             $scope.messages = data;
@@ -22,9 +23,13 @@ angular.module('controller', [])
         });
 
         $scope.addEmoji = function() {
-            $timeout( function () {
-                getResult(JSON.parse(response).id);
-            }, 5000 );
+            $scope.emojiMessage = "ANALYZING....";
+            $http.post('/api/kairos').success(function(response) {
+                $timeout( function () {
+                    getResult(JSON.parse(response).id);
+                }, 5000 );
+
+            });
         };
 
         var refreshMessages = function() {
@@ -63,14 +68,68 @@ angular.module('controller', [])
                         surprise += JSON.parse(response).frames[i].people[0].emotions.surprise;
                     }
 
+                    anger = anger/JSON.parse(response).frames.length;
+                    disgust = disgust/JSON.parse(response).frames.length;
+                    fear = fear/JSON.parse(response).frames.length;
+                    joy = joy/JSON.parse(response).frames.length;
+                    sadness = sadness/JSON.parse(response).frames.length;
+                    surprise = surprise/JSON.parse(response).frames.length;
+
+                    var highestValue = anger;
+                    var highestFeeling = "anger";
+                    if ( disgust > highestValue ) {
+                        highestValue = disgust;
+                        highestFeeling = "disgust";
+                    }
+                    if ( fear > highestValue ) {
+                        highestValue = fear;
+                        highestFeeling = "fear";
+                    }
+                    if ( joy > highestValue ) {
+                        highestValue = joy;
+                        highestFeeling = "joy";
+                    }
+                    if ( sadness > highestValue ) {
+                        highestValue = sadness;
+                        highestFeeling = "sadness";
+                    }
+                    if ( surprise > highestValue ) {
+                        highestValue = surprise;
+                        highestFeeling = "surprise";
+                    }
+
+                    switch (highestFeeling) {
+                        case "anger":
+                            $scope.messageData.emoji = "em em-rage";
+                            break;
+                        case "disgust":
+                            $scope.messageData.emoji = "em em-stuck_out_tongue_closed_eyes";
+                            break;
+                        case "fear":
+                            $scope.messageData.emoji = "em em-fearful";
+                            break;
+                        case "joy":
+                            $scope.messageData.emoji = "em em-smiley";
+                            break;
+                        case "sadness":
+                            $scope.messageData.emoji = "em em-disappointed_relieved";
+                            break;
+                        case "surprise":
+                            $scope.messageData.emoji = "em em-scream_cat";
+                            break;
+                        default:
+                            $scope.messageData.emoji = "em em-sushi";
+                    }
+
                     $scope.analysis = {
-                        anger: anger/JSON.parse(response).frames.length,
-                        disgust: disgust/JSON.parse(response).frames.length,
-                        fear: fear/JSON.parse(response).frames.length,
-                        joy: joy/JSON.parse(response).frames.length,
-                        sadness: sadness/JSON.parse(response).frames.length,
-                        surprise: surprise/JSON.parse(response).frames.length
+                        anger: anger,
+                        disgust: disgust,
+                        fear: fear,
+                        joy: joy,
+                        sadness: sadness,
+                        surprise: surprise
                     };
+                    $scope.emojiMessage = "ADD A DIFFERENT EMOJI";
                     deleteResult(JSON.parse(response).id);
                 }
 
@@ -87,6 +146,7 @@ angular.module('controller', [])
             if ($scope.messageData != undefined) {
                 $http.post('/api/messages', $scope.messageData).success(function(data) {
                     $scope.messageData = {};
+                    $scope.emojiMessage = "ADD EMOJI";
                     $scope.messages = data;
                 });
             }
