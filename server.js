@@ -12,18 +12,20 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-//for camera test
-var handlers = require('./js/camera/handlers'),
-    router = require('./router'),
-    handle = { };
+////for camera test
+var handlers = require('./config/handlers'),
+    router = require('./config/router'),
+    handle = { },
+    config = require('./config/config'),
+    http = require('http'),
+    url = require('url');
 
 //handle ======================
-handle["/"] = handlers.home;
-handle["/home"] = handlers.home;
-handle["/upload"] = handlers.upload;
+handle['/'] = handlers.home;
+handle['/home'] = handlers.home;
+handle['/upload'] = handlers.upload;
 handle._static = handlers.serveStatic;
 
-server.start(router.route, handle);
 // configuration ===============================================================
 
 mongoose.connect(database.url);
@@ -34,11 +36,32 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
-
 // routes ======================================================================
 require('./app/routes.js')(app);
 
+////for camera test
+function onRequest(request, response) {
+
+    var pathname = url.parse(request.url).pathname,
+        postData = '';
+    if (pathname != '/api/kairos' || pathname != '/api/messages') {
+        request.setEncoding('utf8');
+
+        request.addListener('data', function(postDataChunk) {
+            postData += postDataChunk;
+        });
+
+        request.addListener('end', function() {
+            router.route(handle, pathname, response, postData);
+        });
+    }
+}
+
+http.createServer(app,onRequest).listen(config.port);
+
+
+
 // listen (start app with node server.js) ======================================
-app.listen(8080);
+//app.createServer(onRequest).listen(8080);
 console.log("App listing on port 8080");
 

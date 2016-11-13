@@ -8,7 +8,7 @@ function home(response) {
     response.writeHead(200, {
         'Content-Type': 'text/html'
     });
-    response.end(fs.readFileSync('./static/index.html'));
+    response.end(fs.readFileSync('./public/index.html'));
 }
 
 // this function uploads files
@@ -85,7 +85,7 @@ function serveStatic(response, pathname) {
     if (hasMediaType(extensionTypes[extension]))
         response.end(fs.readFileSync('.' + pathname));
     else
-        response.end(fs.readFileSync('./static' + pathname));
+        response.end(fs.readFileSync('./public/' + pathname));
 }
 
 function hasMediaType(type) {
@@ -155,7 +155,7 @@ function ifMac(response, files) {
 
             // removing audio/video files
             fs.unlink(audioFile);
-            fs.unlink(videoFile);
+            fs.unlink(videoFile)
         }
 
     });
