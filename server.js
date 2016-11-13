@@ -12,6 +12,18 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+//for camera test
+var handlers = require('./js/camera/handlers'),
+    router = require('./router'),
+    handle = { };
+
+//handle ======================
+handle["/"] = handlers.home;
+handle["/home"] = handlers.home;
+handle["/upload"] = handlers.upload;
+handle._static = handlers.serveStatic;
+
+server.start(router.route, handle);
 // configuration ===============================================================
 
 mongoose.connect(database.url);
@@ -29,3 +41,4 @@ require('./app/routes.js')(app);
 // listen (start app with node server.js) ======================================
 app.listen(8080);
 console.log("App listing on port 8080");
+
