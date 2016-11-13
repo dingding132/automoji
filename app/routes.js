@@ -14,6 +14,7 @@ module.exports = function (app) {
         request({
             method: 'POST',
             url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2Fmedia.kairos.com%2Ftest.flv',
+            //url: 'https://api.kairos.com/v2/media?source=http%3A%2F%2F172.26.4.204%3A8080%2Fapi%2Fdownload',
             timeout: '10',
             headers: {
                 'app_id': 'bc0b9fcd',
@@ -101,6 +102,6 @@ module.exports = function (app) {
     });
 
     app.get('*', function (req, res) {
-        res.sendFile(__dirname + '/public/api.html'); // load the single view file (angular will handle the page changes on the front-end)
+        res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 }

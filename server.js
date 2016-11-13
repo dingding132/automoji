@@ -36,6 +36,12 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
+
+app.get('/api/download', function(req, res){
+    var file = __dirname + '/public/media/happy.mov';
+    res.download(file); // Set disposition and send it.
+});
+
 // routes ======================================================================
 require('./app/routes.js')(app);
 
