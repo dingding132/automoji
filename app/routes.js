@@ -4,8 +4,11 @@
 // application -------------------------------------------------------------
 
 var request = require('request');
+var Message = require('./models/message');
 
 module.exports = function (app) {
+
+    // KAIROS API ================================================================================
 
     app.post('/api/kairos', function(req, res) {
         request({
@@ -50,6 +53,49 @@ module.exports = function (app) {
             console.log('Headers:', JSON.stringify(response.headers));
             console.log('Response:', body);
             res.json(body);
+        });
+    });
+
+    // MESSAGES API ================================================================================
+
+    app.get('/api/messages', function (req, res) {
+        Message.find(function (err, messages) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(messages);
+        });
+    });
+
+    app.post('/api/messages', function (req, res) {
+        Message.create({
+            author: req.body.author,
+            text: req.body.text,
+            done: false
+        }, function (err) {
+            if (err)
+                res.send(err);
+            Message.find(function (err, messages) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(messages);
+            });
+        });
+    });
+
+    app.delete('/api/messages/:message_id', function (req, res) {
+        Message.remove({
+            _id: req.params.message_id
+        }, function (err) {
+            if (err)
+                res.send(err);
+            Message.find(function (err, messages) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(messages);
+            });
         });
     });
 

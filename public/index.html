@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Automoji</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+    <title>Bootstrap Chat Box Example</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME  CSS -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE CSS -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="js/controllers/mainController.js"></script>
 </head>
 <body>
+<div ng-app="controller">
 
+    <div ng-controller="mainController">
+        <div class="row pad-top pad-bottom">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="chat-box-div">
+                    <div class="chat-box-head">
+                        WELCOME TO AUTOMOJI
+                    </div>
+                    <div class="panel-body chat-box-main" ng-repeat="message in messages">
+                        <div ng-class-odd="'chat-box-left'" ng-class-even="'chat-box-right'">
+                            {{ message.text }} <i class="em em-smiley"></i>
+                        </div>
+                        <div ng-class-odd="'chat-box-name-left'" ng-class-even="'chat-box-name-right'" >
+                             {{ message.author }}
+                        </div>
+                        <hr class="hr-clas" />
+                    </div>
+                    <div class="chat-box-footer">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Name" ng-model="messageData.author">
+                            <input type="text" class="form-control" placeholder="Text" ng-model="messageData.text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" ng-click="addMessage()" type="button">SEND</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+<!-- USING SCRIPTS BELOW TO REDUCE THE LOAD TIME -->
+<!-- CORE JQUERY SCRIPTS FILE -->
+<script src="assets/js/jquery-1.11.1.js"></script>
+<!-- CORE BOOTSTRAP SCRIPTS  FILE -->
+<script src="assets/js/bootstrap.js"></script>
 </body>
+
 </html>

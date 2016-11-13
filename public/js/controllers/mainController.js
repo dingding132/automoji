@@ -7,14 +7,34 @@ angular.module('controller', [])
 
         $scope.status_code;
 
-        $scope.greeting = "Hello World";
+        $scope.messageData = {};
 
-        $http.post('/api/kairos').success(function(response) {
+        $http.get('/api/messages').success(function(data) {
+            $scope.messages = data;
+
+            for (var i=0; i<data.length; i++) {
+                $http.delete('/api/messages/' + data[i]._id).success(function(data) {});
+            }
+
+            $timeout( function () {
+                refreshMessages();
+            }, 3000 );
+        });
+
+        $scope.addEmoji = function() {
             $timeout( function () {
                 getResult(JSON.parse(response).id);
             }, 5000 );
+        };
 
-        });
+        var refreshMessages = function() {
+            $http.get('/api/messages').success(function(data) {
+                $scope.messages = data;
+            });
+            $timeout( function () {
+                refreshMessages();
+            }, 3000 );
+        };
 
         var getResult = function (id) {
             $http.get('/api/kairos/' + id).success(function(response) {
@@ -23,7 +43,6 @@ angular.module('controller', [])
                 $scope.status_code = JSON.parse(response).status_code;
 
                 if ( $scope.status_code != '4' ) {
-                    console.log("hello");
                     $timeout( function () {
                         getResult(id);
                     }, 500 );
@@ -62,6 +81,15 @@ angular.module('controller', [])
             $http.delete('/api/kairos/' + id).success(function(response) {
                 console.log("Delete response", JSON.parse(response));
             });
+        };
+
+        $scope.addMessage = function() {
+            if ($scope.messageData != undefined) {
+                $http.post('/api/messages', $scope.messageData).success(function(data) {
+                    $scope.messageData = {};
+                    $scope.messages = data;
+                });
+            }
         };
 
     });
