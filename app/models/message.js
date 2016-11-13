@@ -11,5 +11,9 @@ module.exports = mongoose.model('Message', {
     text: {
         type: String,
         default: ''
+    },
+    emoji: {
+        type: String,
+        default: ''
     }
 });

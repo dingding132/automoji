@@ -71,6 +71,7 @@ module.exports = function (app) {
         Message.create({
             author: req.body.author,
             text: req.body.text,
+            emoji:req.body.emoji,
             done: false
         }, function (err) {
             if (err)
