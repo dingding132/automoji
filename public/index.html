@@ -33,7 +33,7 @@
                     </div>
                     <div class="panel-body chat-box-main" ng-repeat="message in messages">
                         <div ng-class-odd="'chat-box-left'" ng-class-even="'chat-box-right'">
-                            {{ message.text }} <i class="em em-smiley"></i>
+                            {{ message.text }} <i class="{{ message.emoji }}"></i>
                         </div>
                         <div ng-class-odd="'chat-box-name-left'" ng-class-even="'chat-box-name-right'" >
                              {{ message.author }}
@@ -44,6 +44,8 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Name" ng-model="messageData.author">
                             <input type="text" class="form-control" placeholder="Text" ng-model="messageData.text">
+                            <button class="btn btn-info" ng-click="addEmoji()" type="button">{{ emojiMessage }}</button>
+                            <i class="{{ messageData.emoji }}"></i>
                             <span class="input-group-btn">
                                 <button class="btn btn-info" ng-click="addMessage()" type="button">SEND</button>
                             </span>
