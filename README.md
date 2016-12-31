@@ -1,6 +1,2 @@
-To use AUTOMOJI:
-
-1) Install Node
-2) Run "npm install"
-3) Run "node server.js"
-4) Visit localhost:8080
+# AUTOMOJI
+<p> AUTOMOJI is a chat which uses the Kairos emotional analysis API to input the proper emoji based on the users emotion while typing the message. </p>
